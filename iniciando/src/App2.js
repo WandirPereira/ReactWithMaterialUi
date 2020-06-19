@@ -22,7 +22,8 @@ function App2 (props){
 
         return(
           <>
-                <input type="text" value={props.nome} onChange={modificarNome}/>
+                {/*class é uma palavra reservada do html normal, no JSX devemos utilizar className */}
+                <input className="text-centralizado" type="text" value={props.nome} onChange={modificarNome}/>
                 <h1>Meu nome é {props.nome} e a minha idade é {props.idade}</h1>
                 <MeuComboBox/>  {/*como componente*/}
           </>
