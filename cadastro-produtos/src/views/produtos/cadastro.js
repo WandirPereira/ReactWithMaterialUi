@@ -1,13 +1,23 @@
 import React from 'react'
+import ProdutoService from '../../app/produtoService'
+
+const estadoInicial = {
+    nome: '',
+    sku: '',
+    descricao: '',
+    preco: 0,
+    fornecedor: '',
+    sucesso: false
+}
+
 
 class CadastroProduto extends React.Component{
 
-    state = {
-        nome: '',
-        sku: '',
-        descricao: '',
-        preco: 0,
-        fornecedor: ''
+    state = estadoInicial
+
+    constructor(){
+        super()
+        this.service = new ProdutoService();
     }
 
     onChange = (event) => {
@@ -17,7 +27,21 @@ class CadastroProduto extends React.Component{
     }
 
     onSubmit = (event) => {
-        console.log(this.state)
+        const produto = {
+            nome: this.state.nome,
+            sku: this.state.sku,
+            descricao: this.state.descricao,
+            preco: this.state.preco,
+            fornecedor: this.state.fornecedor
+        }
+        this.service.salvar(produto)
+        this.limpaCampos()
+        this.setState({sucesso: true})
+    }
+
+    limpaCampos = () => {
+        this.setState(estadoInicial)
+
     }
 
     render(){
@@ -28,6 +52,15 @@ class CadastroProduto extends React.Component{
                 </div>
 
                 <div className="card-body">
+
+                {this.state.sucesso ?
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Bem feito!</strong> Cadastro realizado com sucesso!
+                </div>
+                :(<></>)
+                }
+
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group">
@@ -100,7 +133,7 @@ class CadastroProduto extends React.Component{
                             <button  onClick={this.onSubmit} className="btn btn-success">Salvar</button>                       
                         </div>
                         <div className="col-md-1">
-                            <button className="btn btn-primary">Limpar</button>                       
+                            <button onClick={this.limpaCampos} className="btn btn-primary">Limpar</button>                       
                         </div>
                     </div>
 
