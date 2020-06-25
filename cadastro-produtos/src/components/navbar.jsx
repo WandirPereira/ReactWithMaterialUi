@@ -4,6 +4,7 @@ function Navbar(){
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <a className="navbar-brand" href="#">Produtos</a>
+            
             <button className="navbar-toggler" 
                     type="button" data-toggle="collapse" 
                     data-target="#navbarColor01" 
